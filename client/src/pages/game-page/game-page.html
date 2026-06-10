@@ -1,0 +1,72 @@
+@let question = this.currentQuestion();
+<div class="timer-align">
+  <div class="timer-box">
+    <div>
+      <p class="point-text">Time</p>
+      <p class="timer-text">{{ `:${this.timerService.timer()}` }}</p>
+    </div>
+  </div>
+  <div class="point-box">
+    <div>
+      <p class="point-text">Winnings</p>
+      <p class="timer-text">
+        {{ currentPlayerState?.points | currency: 'USD' : 'symbol' : '1.0-0' }}
+      </p>
+    </div>
+  </div>
+</div>
+<div class="game-title-align">
+  <div class="game-info">
+    <h1 class="game-title">Trivia Game</h1>
+
+    <h2>
+      {{
+        this.signalRService.playersInRoom().length
+          ? `${this.signalRService.currentTurn()}'s Turn`
+          : ''
+      }}
+    </h2>
+  </div>
+</div>
+
+@if (isEliminated) {
+  <div class="eliminated-message">
+    <h2>You've been eliminated!</h2>
+    <p>Waiting for other players to finish...</p>
+    <p>
+      You walked away with {{ currentPlayerState?.points | currency: 'USD' : 'symbol' : '1.0-0' }}
+    </p>
+  </div>
+} @else {
+  @if (
+    gameStateService.currentPlayer &&
+    signalRService.currentTurn() !== gameStateService.currentPlayer
+  ) {
+    <div class="not-your-turn-message">
+      <h2>It's not your turn!</h2>
+      <p>Please wait for your turn to answer the question.</p>
+    </div>
+  } @else {
+    <div class="question-block">
+      <p>{{ question?.question }}</p>
+
+      <form [formGroup]="answerForm" class="answers-container">
+        @for (answer of question?.answers; track $index) {
+          <div class="answer-block">
+            <input type="radio" [value]="$index" name="answer" formControlName="answer" />
+            <label>{{ answer }}</label>
+          </div>
+        }
+      </form>
+      <button
+        [disabled]="
+          this.answerForm.invalid ||
+          this.signalRService.currentTurn() !== this.gameStateService.currentPlayer
+        "
+        (click)="checkAnswer()"
+      >
+        Submit
+      </button>
+    </div>
+  }
+}

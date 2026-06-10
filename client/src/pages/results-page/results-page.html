@@ -1,0 +1,27 @@
+<div class="score-summary">
+  <h1>Score Summary</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Winnings</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (player of this.signalRService.playersInRoom(); track $index) {
+        <tr>
+          <td>{{ player.name }}</td>
+          <td>{{ player.points | currency: 'USD' : 'symbol' : '1.0-0' }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
+@if (isHost) {
+  <div class="button-center">
+    <button (click)="onPlayAgainClicked()">Play Again</button>
+  </div>
+  <p class="center">Returning to lobby in {{ countdown() }} seconds...</p>
+} @else {
+  <p class="center">Waiting for host to start a new game...</p>
+}

@@ -1,0 +1,16 @@
+<div class="welcome-msg">
+  <h1>Welcome to Movie Trivia</h1>
+  <p>Test your knowledge of movies and actors!</p>
+  <p>Please enter your name and click the button below to begin.</p>
+  <form [formGroup]="nameForm">
+    <div class="form-group">
+      <input type="text" formControlName="playerName" placeholder="Enter your name" />
+      <select formControlName="category">
+        @for (category of this.categories; track $index) {
+          <option [value]="category.id">{{ category.name }}</option>
+        }
+      </select>
+    </div>
+  </form>
+  <button [disabled]="nameForm.invalid" (click)="goToLobby()">Join Lobby</button>
+</div>

@@ -1,0 +1,21 @@
+<div class="lobby-container">
+  <h1 class="lobby-title">Trivia Lobby</h1>
+  <p class="lobby-subtitle">Waiting for players to join...</p>
+
+  <div class="players-panel">
+    <div class="players-header">
+      <span>Players</span>
+      <span class="player-count">{{ signalRService.playersInRoom().length }}</span>
+    </div>
+    <ul class="players-list">
+      @for (player of signalRService.playersInRoom(); track $index) {
+        <li class="player-item">
+          <span class="player-avatar">{{ player.name[0].toUpperCase() }}</span>
+          <span class="player-name">{{ player.name }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <button class="start-btn" (click)="startGame()">Start Game</button>
+</div>

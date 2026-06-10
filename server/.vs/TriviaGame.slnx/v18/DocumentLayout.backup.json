@@ -1,0 +1,122 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{ACA0336A-AD04-D4F1-7A00-980E3B37EC9B}|TriviaGame\\TriviaGame.csproj|c:\\users\\daniel.chambers\\source\\repos\\triviagame\\triviagame\\controllers\\questioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACA0336A-AD04-D4F1-7A00-980E3B37EC9B}|TriviaGame\\TriviaGame.csproj|solutionrelative:triviagame\\controllers\\questioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACA0336A-AD04-D4F1-7A00-980E3B37EC9B}|TriviaGame\\TriviaGame.csproj|c:\\users\\daniel.chambers\\source\\repos\\triviagame\\triviagame\\services\\questionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACA0336A-AD04-D4F1-7A00-980E3B37EC9B}|TriviaGame\\TriviaGame.csproj|solutionrelative:triviagame\\services\\questionservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACA0336A-AD04-D4F1-7A00-980E3B37EC9B}|TriviaGame\\TriviaGame.csproj|c:\\users\\daniel.chambers\\source\\repos\\triviagame\\triviagame\\hubs\\gamehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACA0336A-AD04-D4F1-7A00-980E3B37EC9B}|TriviaGame\\TriviaGame.csproj|solutionrelative:triviagame\\hubs\\gamehub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACA0336A-AD04-D4F1-7A00-980E3B37EC9B}|TriviaGame\\TriviaGame.csproj|c:\\users\\daniel.chambers\\source\\repos\\triviagame\\triviagame\\models\\gameroomstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACA0336A-AD04-D4F1-7A00-980E3B37EC9B}|TriviaGame\\TriviaGame.csproj|solutionrelative:triviagame\\models\\gameroomstate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACA0336A-AD04-D4F1-7A00-980E3B37EC9B}|TriviaGame\\TriviaGame.csproj|c:\\users\\daniel.chambers\\source\\repos\\triviagame\\triviagame\\models\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACA0336A-AD04-D4F1-7A00-980E3B37EC9B}|TriviaGame\\TriviaGame.csproj|solutionrelative:triviagame\\models\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACA0336A-AD04-D4F1-7A00-980E3B37EC9B}|TriviaGame\\TriviaGame.csproj|c:\\users\\daniel.chambers\\source\\repos\\triviagame\\triviagame\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ACA0336A-AD04-D4F1-7A00-980E3B37EC9B}|TriviaGame\\TriviaGame.csproj|solutionrelative:triviagame\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GameRoomState.cs",
+              "DocumentMoniker": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\TriviaGame\\Models\\GameRoomState.cs",
+              "RelativeDocumentMoniker": "TriviaGame\\Models\\GameRoomState.cs",
+              "ToolTip": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\TriviaGame\\Models\\GameRoomState.cs",
+              "RelativeToolTip": "TriviaGame\\Models\\GameRoomState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-26T00:17:45.47Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GameHub.cs",
+              "DocumentMoniker": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\TriviaGame\\Hubs\\GameHub.cs",
+              "RelativeDocumentMoniker": "TriviaGame\\Hubs\\GameHub.cs",
+              "ToolTip": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\TriviaGame\\Hubs\\GameHub.cs",
+              "RelativeToolTip": "TriviaGame\\Hubs\\GameHub.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIcAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T18:57:05.681Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Model.cs",
+              "DocumentMoniker": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\TriviaGame\\Models\\Model.cs",
+              "RelativeDocumentMoniker": "TriviaGame\\Models\\Model.cs",
+              "ToolTip": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\TriviaGame\\Models\\Model.cs",
+              "RelativeToolTip": "TriviaGame\\Models\\Model.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T02:22:33.691Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "QuestionController.cs",
+              "DocumentMoniker": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\TriviaGame\\Controllers\\QuestionController.cs",
+              "RelativeDocumentMoniker": "TriviaGame\\Controllers\\QuestionController.cs",
+              "ToolTip": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\TriviaGame\\Controllers\\QuestionController.cs",
+              "RelativeToolTip": "TriviaGame\\Controllers\\QuestionController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T01:12:25.008Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\TriviaGame\\Program.cs",
+              "RelativeDocumentMoniker": "TriviaGame\\Program.cs",
+              "ToolTip": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\TriviaGame\\Program.cs",
+              "RelativeToolTip": "TriviaGame\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T01:00:46.059Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "QuestionService.cs",
+              "DocumentMoniker": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\TriviaGame\\Services\\QuestionService.cs",
+              "RelativeDocumentMoniker": "TriviaGame\\Services\\QuestionService.cs",
+              "ToolTip": "C:\\Users\\daniel.chambers\\source\\repos\\TriviaGame\\TriviaGame\\Services\\QuestionService.cs",
+              "RelativeToolTip": "TriviaGame\\Services\\QuestionService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-25T01:00:18.829Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

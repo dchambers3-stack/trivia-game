@@ -1,0 +1,170 @@
+.timer-box {
+  width: 150px;
+  height: 150px;
+  border-radius: 25%;
+  background-color: rgb(32, 29, 29);
+  margin: 20px;
+  border: 2px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.point-box {
+  width: 150px;
+  height: 150px;
+  border-radius: 25%;
+  background-color: rgb(32, 29, 29);
+  margin: 20px;
+  border: 2px solid rgb(32, 61, 189);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.timer-text {
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 0;
+}
+.point-text {
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: 0;
+}
+.timer-align {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+.game-title-align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.question-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.question-block p {
+  animation:
+    slideInFromLeft 0.5s ease-out,
+    fadeIn 1.5s ease-out;
+  font-size: 24px;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.answers-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  animation:
+    slideInFromRight 0.5s ease-out,
+    fadeIn 1.5s ease-out;
+}
+.answer-block {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+input[type='radio'] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: rgb(44, 123, 197);
+}
+label {
+  font-size: 18px;
+  margin-left: 8px;
+}
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: rgb(44, 123, 197);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: rgb(44, 123, 197, 0.8);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+button:disabled:hover {
+  background-color: rgb(44, 123, 197);
+}
+.game-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.eliminated-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 60px auto;
+  padding: 40px 50px;
+  max-width: 500px;
+  background-color: rgb(32, 29, 29);
+  border: 2px solid red;
+  border-radius: 12px;
+  text-align: center;
+  animation: fadeIn 1s ease-out;
+}
+.eliminated-message h2 {
+  color: red;
+  font-size: 32px;
+  margin: 0 0 16px;
+  letter-spacing: 1px;
+}
+.eliminated-message p {
+  color: white;
+  font-size: 18px;
+  margin: 8px 0;
+}
+.eliminated-message p:last-child {
+  margin-top: 20px;
+  font-size: 24px;
+  color: rgb(44, 123, 197);
+  font-weight: bold;
+}
