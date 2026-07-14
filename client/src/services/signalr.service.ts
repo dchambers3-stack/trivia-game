@@ -18,6 +18,7 @@ export class SignalRService {
   isGameOver = signal<boolean>(false);
   playersInRoom = signal<PlayerState[]>([]);
   hostName = signal<string>('');
+  playerWhoLeft = signal<string>('');
   private ngZone = inject(NgZone);
   private connection = new signalR.HubConnectionBuilder()
     .withUrl('http://localhost:5086/gamehub')
@@ -36,6 +37,8 @@ export class SignalRService {
     await this.listenForTurnChanged();
     await this.listenForGameOver();
     await this.listenForGameReset();
+    await this.listenForCategoryUpdated();
+    await this.listenForPlayerLeft();
   }
   async joinRoom(roomCode: string, playerName: string): Promise<void> {
     await this.connection.invoke('JoinRoom', roomCode, playerName);
@@ -43,6 +46,24 @@ export class SignalRService {
   async leaveRoom(roomCode: string, playerName: string): Promise<void> {
     await this.connection.invoke('LeaveRoom', roomCode, playerName);
   }
+
+  async setCategory(categoryId: number): Promise<void> {
+    this.connection.invoke(
+      'SetCategory',
+      this.gameStateService.FAMILY_ROOM_CODE,
+      this.gameStateService.currentPlayer,
+      categoryId,
+    );
+  }
+
+  async listenForCategoryUpdated(): Promise<void> {
+    this.connection.on('CategoryUpdated', (categoryId: number) => {
+      this.ngZone.run(() => {
+        this.gameStateService.setCategory(categoryId);
+      });
+    });
+  }
+
   async listenForMessages(): Promise<void> {
     this.connection.on('ReceiveMessage', (message: string) => {
       this.ngZone.run(() => {
@@ -61,10 +82,9 @@ export class SignalRService {
     });
   }
   async listenForGameStarted(): Promise<void> {
-    this.connection.on('GameStarted', () => {
+    this.connection.on('GameStarted', (categoryId: number) => {
       this.ngZone.run(async () => {
         if (this.questionService.questions().length === 0) {
-          const categoryId = this.gameStateService.category();
           await this.questionService.loadQuestions(categoryId ?? undefined);
         }
         this.router.navigate(['/game']);
@@ -81,6 +101,13 @@ export class SignalRService {
           this.gameStateService.currentIndex.set(questionIndex);
         }
         this.gameStateService.gameSound.play();
+      });
+    });
+  }
+  async listenForPlayerLeft(): Promise<void> {
+    this.connection.on('PlayerLeft', (playerName: string) => {
+      this.ngZone.run(() => {
+        this.playerWhoLeft.set(playerName);
       });
     });
   }
@@ -105,6 +132,7 @@ export class SignalRService {
       this.ngZone.run(() => {
         this.isGameOver.set(false);
         this.hostName.set('');
+        this.playerWhoLeft.set('');
         this.timerService.resetTimer();
         this.gameStateService.currentIndex.set(0);
         this.router.navigate(['/lobby']);

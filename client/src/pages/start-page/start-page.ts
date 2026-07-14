@@ -1,9 +1,8 @@
-import { Component, inject, output } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GameState } from '../../services/game-state';
-import { QuestionService } from '../../services/question';
-import { KeyValuePipe } from '@angular/common';
+import { SignalRService } from '../../services/signalr.service';
 
 @Component({
   selector: 'app-start-page',
@@ -19,30 +18,45 @@ export class StartPage {
     { id: 17, name: 'Science & Nature' },
     { id: 22, name: 'Geography' },
   ];
+
   private router = inject(Router);
   private fb = inject(FormBuilder);
   protected gameStateService = inject(GameState);
+  protected signalRService = inject(SignalRService);
+
+  protected joined = signal(false);
+
+  protected isLeader = computed(
+    () => this.signalRService.hostName() === this.gameStateService.currentPlayer,
+  );
 
   protected nameForm = this.fb.group({
     playerName: ['', Validators.required],
-    category: [null, Validators.required],
+    category: [null as number | null],
   });
 
-  appendPlayerName() {
-    try {
-      const playerName = this.nameForm.value.playerName?.trim();
-      if (playerName) {
-        this.gameStateService.addPlayer(playerName);
-      }
-    } catch (error) {
-      console.error('Error adding player name:', error);
-    }
+  protected async joinAndContinue() {
+    const playerName = this.nameForm.value.playerName?.trim();
+    if (!playerName) return;
+
+    this.gameStateService.addPlayer(playerName);
+    await this.signalRService.startConnection();
+    await this.signalRService.joinRoom(this.gameStateService.FAMILY_ROOM_CODE, playerName);
+    this.joined.set(true);
+  }
+  protected async leaveRoom() {
+    const playerName = this.nameForm.value.playerName?.trim();
+    if (!playerName) return;
+    this.gameStateService.removePlayer(playerName);
+    await this.signalRService.leaveRoom(this.gameStateService.FAMILY_ROOM_CODE, playerName);
+    this.joined.set(false);
   }
 
   protected async goToLobby() {
-    const category = this.nameForm.controls.category.value;
-    this.gameStateService.setCategory(category ?? 0);
-    this.appendPlayerName();
+    if (this.isLeader()) {
+      const category = this.nameForm.controls.category.value;
+      await this.signalRService.setCategory(category ?? 0);
+    }
     this.router.navigate(['/lobby']);
   }
 }

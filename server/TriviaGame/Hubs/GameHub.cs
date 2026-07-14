@@ -115,12 +115,66 @@ namespace TriviaGame.Hubs
         public async Task LeaveRoom(string roomCode, string playerName)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, roomCode);
-            if (_rooms.ContainsKey(roomCode))
+            if (!_rooms.ContainsKey(roomCode))
+                return;
+
+            var room = _rooms[roomCode];
+            var leavingIndex = room.Players.FindIndex(p => p.Name == playerName);
+            if (leavingIndex == -1)
+                return;
+
+            var wasCurrentPlayersTurn = leavingIndex == room.CurrentPlayerIndex;
+            room.Players.RemoveAt(leavingIndex);
+
+            await Clients.Group(roomCode).SendAsync("PlayersUpdated", room.Players);
+            await Clients.Group(roomCode).SendAsync("PlayerLeft", playerName);
+
+            if (room.Players.Count <= 1)
             {
-                var player = _rooms[roomCode].Players.FirstOrDefault(p => p.Name == playerName);
-                if (player != null)
-                    _rooms[roomCode].Players.Remove(player);
-                await Clients.Group(roomCode).SendAsync("PlayersUpdated", _rooms[roomCode].Players);
+                room.GameOver = true;
+                await Clients.Group(roomCode).SendAsync("GameOver", room.Players);
+                return;
+            }
+
+            // The list just shifted left past this point, keep the turn pointer valid.
+            if (leavingIndex < room.CurrentPlayerIndex)
+                room.CurrentPlayerIndex--;
+            room.CurrentPlayerIndex %= room.Players.Count;
+
+            // A round can't expect more answers than there are active players left.
+            var activeCount = room.Players.Count(p => !p.IsEliminated);
+            room.PlayersExpectedForCurrentQuestion = Math.Min(
+                room.PlayersExpectedForCurrentQuestion,
+                activeCount
+            );
+            if (room.PlayersAnsweredCount >= room.PlayersExpectedForCurrentQuestion)
+            {
+                room.CurrentQuestionIndex++;
+                room.PlayersAnsweredCount = 0;
+                room.PlayersExpectedForCurrentQuestion = activeCount;
+            }
+
+            if (activeCount == 0 || room.CurrentQuestionIndex >= PrizeLadder.Length)
+            {
+                room.GameOver = true;
+                await Clients.Group(roomCode).SendAsync("GameOver", room.Players);
+                return;
+            }
+
+            while (room.Players[room.CurrentPlayerIndex].IsEliminated)
+            {
+                room.CurrentPlayerIndex = (room.CurrentPlayerIndex + 1) % room.Players.Count;
+            }
+
+            if (wasCurrentPlayersTurn)
+            {
+                await Clients
+                    .Group(roomCode)
+                    .SendAsync(
+                        "TurnChanged",
+                        room.Players[room.CurrentPlayerIndex].Name,
+                        room.CurrentQuestionIndex
+                    );
             }
         }
 

@@ -29,6 +29,9 @@
   </div>
 </div>
 
+@if (signalRService.playerWhoLeft()) {
+  <p>{{ signalRService.playerWhoLeft() }} left the game.</p>
+}
 @if (isEliminated) {
   <div class="eliminated-message">
     <h2>You've been eliminated!</h2>
@@ -67,6 +70,7 @@
       >
         Submit
       </button>
+      <button (click)="exitButtonClicked()">Leave Game</button>
     </div>
   }
 }

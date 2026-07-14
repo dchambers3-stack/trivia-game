@@ -1,4 +1,13 @@
-import { Component, computed, effect, inject, OnInit, untracked } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  HostListener,
+  inject,
+  OnInit,
+  OnDestroy,
+  untracked,
+} from '@angular/core';
 import { Timer } from '../../services/timer';
 import { QuestionService } from '../../services/question';
 import { CurrencyPipe, JsonPipe } from '@angular/common';
@@ -13,7 +22,7 @@ import { SignalRService } from '../../services/signalr.service';
   templateUrl: './game-page.html',
   styleUrl: './game-page.css',
 })
-export class GamePage implements OnInit {
+export class GamePage implements OnInit, OnDestroy {
   protected timerService = inject(Timer);
   protected questionService = inject(QuestionService);
   protected gameStateService = inject(GameState);
@@ -34,6 +43,7 @@ export class GamePage implements OnInit {
         );
       }
     };
+
     effect(() => {
       const isMyTurn = this.signalRService.currentTurn() === this.gameStateService.currentPlayer;
       untracked(() => {
@@ -55,6 +65,20 @@ export class GamePage implements OnInit {
 
   protected stopTimer() {
     this.timerService.stopTimer();
+  }
+  @HostListener('window:beforeunload', ['$event'])
+  protected async quitGame(event: Event) {
+    const playerName = this.gameStateService.currentPlayer;
+    if (playerName) {
+      await this.signalRService.leaveRoom(this.gameStateService.FAMILY_ROOM_CODE, playerName);
+      this.router.navigate(['/']);
+    }
+  }
+  ngOnDestroy() {
+    this.gameStateService.gameSound.pause();
+  }
+  protected exitButtonClicked() {
+    this.leaveRoom();
   }
   protected leaveRoom() {
     const playerName = this.gameStateService.currentPlayer;

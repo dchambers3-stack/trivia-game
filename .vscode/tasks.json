@@ -1,0 +1,74 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "server: watch",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["watch", "run", "--project", "${workspaceFolder}/server/TriviaGame"],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "dotnet",
+        "fileLocation": "absolute",
+        "pattern": {
+          "regexp": "^(.*)\\((\\d+),(\\d+)\\): (warning|error) (\\w+\\d+): (.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "severity": 4,
+          "code": 5,
+          "message": 6
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*watch.*Started$",
+          "endsPattern": "^.*(Now listening on|Application started).*$"
+        }
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "fullstack",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "client: start",
+      "type": "npm",
+      "script": "start",
+      "path": "client",
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "typescript",
+        "pattern": {
+          "regexp": "^.*$",
+          "file": 1,
+          "location": 2,
+          "message": 3
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Application bundle generation",
+          "endsPattern": "(Watch mode enabled|Application bundle generation complete)"
+        }
+      },
+      "presentation": {
+        "panel": "dedicated",
+        "group": "fullstack",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Run Full Stack",
+      "dependsOn": ["server: watch", "client: start"],
+      "dependsOrder": "parallel",
+      "problemMatcher": []
+    },
+    {
+      "label": "build-server",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["build", "${workspaceFolder}/server/TriviaGame/TriviaGame.csproj"],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

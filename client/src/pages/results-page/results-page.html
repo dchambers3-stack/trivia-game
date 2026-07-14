@@ -1,3 +1,10 @@
+@if (signalRService.playerWhoLeft()) {
+  @if (signalRService.playersInRoom().length === 1) {
+    <p class="center">{{ signalRService.playerWhoLeft() }} left the game. You win!</p>
+  } @else {
+    <p class="center">{{ signalRService.playerWhoLeft() }} left the game.</p>
+  }
+}
 <div class="score-summary">
   <h1>Score Summary</h1>
   <table>
