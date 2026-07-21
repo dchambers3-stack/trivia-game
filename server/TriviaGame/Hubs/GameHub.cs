@@ -107,8 +107,13 @@ namespace TriviaGame.Hubs
             {
                 _rooms[roomCode] = new GameRoomState();
             }
-            if (!_rooms[roomCode].Players.Any(p => p.Name == playerName))
-                _rooms[roomCode].Players.Add(new PlayerState { Name = playerName });
+            var player = _rooms[roomCode].Players.FirstOrDefault(p => p.Name == playerName);
+            if (player == null)
+            {
+                player = new PlayerState { Name = playerName };
+                _rooms[roomCode].Players.Add(player);
+            }
+            player.ConnectionId = Context.ConnectionId;
             await Clients.Group(roomCode).SendAsync("PlayersUpdated", _rooms[roomCode].Players);
         }
 
@@ -176,6 +181,21 @@ namespace TriviaGame.Hubs
                         room.CurrentQuestionIndex
                     );
             }
+        }
+
+        public override async Task OnDisconnectedAsync(Exception? exception)
+        {
+            foreach (var (roomCode, room) in _rooms)
+            {
+                var player = room.Players.FirstOrDefault(p => p.ConnectionId == Context.ConnectionId);
+                if (player != null)
+                {
+                    await LeaveRoom(roomCode, player.Name);
+                    break;
+                }
+            }
+
+            await base.OnDisconnectedAsync(exception);
         }
 
         public async Task StartGame(string roomCode)
