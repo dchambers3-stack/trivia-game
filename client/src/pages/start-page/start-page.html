@@ -5,12 +5,26 @@
   <form [formGroup]="nameForm">
     <div class="form-group">
       <input type="text" formControlName="playerName" placeholder="Enter your name" />
-      <select formControlName="category">
-        @for (category of this.categories; track $index) {
-          <option [value]="category.id">{{ category.name }}</option>
-        }
-      </select>
+
+      @if (!joined()) {
+        <button
+          type="button"
+          [disabled]="nameForm.controls.playerName.invalid"
+          (click)="joinAndContinue()"
+        >
+          Continue
+        </button>
+      } @else if (isLeader()) {
+        <select formControlName="category">
+          @for (category of categories; track category.id) {
+            <option [value]="category.id">{{ category.name }}</option>
+          }
+        </select>
+        <button (click)="goToLobby()">Join Lobby</button>
+      } @else {
+        <p>Waiting for {{ signalRService.hostName() }} to pick a category&hellip;</p>
+        <button (click)="goToLobby()">Join Lobby</button>
+      }
     </div>
   </form>
-  <button [disabled]="nameForm.invalid" (click)="goToLobby()">Join Lobby</button>
 </div>

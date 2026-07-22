@@ -15,5 +15,6 @@
         public string Name { get; set; } = string.Empty;
         public int Points { get; set; } = 0;
         public bool IsEliminated { get; set; } = false;
+        public string? ConnectionId { get; set; }
     }
 }

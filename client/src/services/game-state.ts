@@ -30,6 +30,10 @@ export class GameState {
     this.players.update((players) => [...players, name]);
   }
 
+  removePlayer(name: string) {
+    this.players.update((players) => players.filter((player) => player !== name));
+  }
+
   resetPoints() {
     this.points.set(0);
   }
